@@ -12,7 +12,11 @@ def hello_monkey():
 
     resp = twilio.twiml.Response()
     # resp.message("Hello, Mobile Monkey")
-    response_data = request.form[0][4]
+    try:
+        response_data = request.form[0][4]
+    except Exception:
+        response_data = Exception
+
     resp.message(str(response_data))
     return str(resp)
 
