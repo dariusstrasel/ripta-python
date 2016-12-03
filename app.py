@@ -1,29 +1,16 @@
-from flask import Flask
+from flask import Flask, request, redirect
+import twilio.twiml
+
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+@app.route("/", methods=['GET', 'POST'])
+def hello_monkey():
+    """Respond to incoming calls with a simple text message."""
 
-from twilio.rest import TwilioRestClient
-from twilio import TwilioRestException
+    resp = twilio.twiml.Response()
+    resp.message("Hello, Mobile Monkey")
+    return str(resp)
 
-account_sid = "123456789" # Your Account SID from www.twilio.com/console
-auth_token  = "123456789"  # Your Auth Token from www.twilio.com/console
+if __name__ == "__main__":
+    app.run(debug=True)
 
-#TwilioRestClient _init_ callback
-client = TwilioRestClient(account_sid, auth_token)
-
-try:
-    message = client.messages.create(body="Hello from Python",
-        to="+3057074681",    # Replace with your phone number
-        from_="+7542636189") # Replace with your Twilio number
-#This will print an exception if risen. Commonly returns 400, or "Invalid phone number."
-except TwilioRestException as e:
-    print(e)
-print(message)
-
-
-
-if __name__ == '__main__':
-    app.run()
