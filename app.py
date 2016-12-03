@@ -12,7 +12,7 @@ def hello_monkey():
 
     resp = twilio.twiml.Response()
     # resp.message("Hello, Mobile Monkey")
-    resp.message(str(request.headers))
+    resp.message(str(request.form))
     return str(resp)
 
 if __name__ == "__main__":
