@@ -13,12 +13,12 @@ def hello_monkey():
     resp = twilio.twiml.Response()
     # resp.message("Hello, Mobile Monkey")
     try:
-        response_data = request.form.to_dict()['body']
+        response_data = request.form.to_dict()
         print(response_data)
     except Exception:
         response_data = Exception
 
-    resp.message(str(response_data))
+    resp.message(str(response_data['body']))
     return str(resp)
 
 if __name__ == "__main__":
