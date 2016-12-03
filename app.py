@@ -13,7 +13,8 @@ def hello_monkey():
     resp = twilio.twiml.Response()
     # resp.message("Hello, Mobile Monkey")
     try:
-        response_data = request.mimetype_params
+        response_data = request.form.get('body')
+        print(response_data)
     except Exception:
         response_data = Exception
 
