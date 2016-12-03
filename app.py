@@ -12,7 +12,8 @@ def hello_monkey():
 
     resp = twilio.twiml.Response()
     # resp.message("Hello, Mobile Monkey")
-    resp.message(str(request.form[0][4]))
+    response_data = request.form[0][4]
+    resp.message(str(response_data))
     return str(resp)
 
 if __name__ == "__main__":
