@@ -64,6 +64,7 @@ def getActiveTripsAndStops(trips_list):
 #compares index values in json arrays
 def getStopsDistance(trips_stops_list, passenger_stop):
     text_msg = ''
+    closest_stop = 500
     for trip_dct in trips_stops_list:
         stop = int(trip_dct.get('stop'))
         route = str(trip_dct.get('route'))
@@ -72,26 +73,33 @@ def getStopsDistance(trips_stops_list, passenger_stop):
                 stop_ids_list = route_dct.get("stop_ids")
                 bus_idx = stop_ids_list.index(stop)
                 passen_idx = stop_ids_list.index(passenger_stop)
-                if bus_idx <= passen_idx:
-                    text_msg += "Bus "+str(route)+" is "+str(passen_idx - bus_idx)+" stops away. "
+                if bus_idx <= passen_idx and (passen_idx - bus_idx) < closest_stop:
+                    closest_stop = passen_idx - bus_idx
+                    text_msg = "Bus "+str(route)+" is "+str(passen_idx - bus_idx)+" stops away. "
     if text_msg == '':
-        return "There are no buses on the way to your stop."
+        return "There are no buses arriving at your stop soon."
+        #if stop is not valid, user will get this message
     else:
         return text_msg
+
 
 def smsReply(passenger_stop):
     passenger_routes = getRoutes(passenger_stop)
     bus_trips = getTrips(passenger_routes)
     active_trips_and_stops = getActiveTripsAndStops(bus_trips)
     return getStopsDistance(active_trips_and_stops, passenger_stop)
+#if bus is sitting at origin point, function will return value for that bus even if trip hasn't started
+
 
 def main():
     pass
         
 if __name__ == '__main__':
     main()
-    
 
+print(smsReply(16710))
+    
+# old test values for functions
 # print(getRoutes(6335))
 # print(getTrips([12]))
 # print(getActiveTripsAndStops(['2390233', '2390236', '2356020', '2356003', '2395173', '2356376']))
