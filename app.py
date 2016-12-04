@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect
+from flask import Flask, request
 import twilio.twiml
 import RIPTAStopCalculations
 
