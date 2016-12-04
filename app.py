@@ -1,6 +1,6 @@
 from flask import Flask, request, redirect
 import twilio.twiml
-
+import RIPTAStopCalculations
 
 app = Flask(__name__)
 
@@ -11,7 +11,7 @@ def echo_input():
     resp = twilio.twiml.Response()
     try:
         response_data = request.form.to_dict()['Body']
-        print(response_data)
+        # print(response_data)
     except Exception:
         response_data = Exception.__base__
 
