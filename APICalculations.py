@@ -60,6 +60,7 @@ def getActiveTripsAndStops(trips_list):
     return trips_stops_list
     
 #calculates distance from passenger to bus measured in number of bus stops
+#compares index values in json arrays
 def getsStopsDistance(trips_stops_list, passenger_stop):
     text_msg = ''
     for trip_dct in trips_stops_list:
@@ -77,23 +78,21 @@ def getsStopsDistance(trips_stops_list, passenger_stop):
     else:
         return text_msg
                 
-
-passenger_stop = input("Enter your RIPTA stop number: ")'
+#testing with input values
+passenger_stop = int(input())
 passenger_routes = getRoutes(passenger_stop)
 bus_trips = getTrips(passenger_routes)
 active_trips_and_stops = getActiveTripsAndStops(bus_trips)
 
 
-print(getsStopsDistance(active_trips_and_stops, passenger_stop)
+print(getsStopsDistance(active_trips_and_stops, passenger_stop))
 
         
         
     
     
-"""
-Test values
-"""
-#print(getRoutes(6335))
-#print(getTrips([12]))
-#print(getActiveTripsAndStops(['2390233', '2390236', '2356020', '2356003', '2395173', '2356376']))
-#print(getsStopsDistance([{'stop': '1155', 'route': '66', 'trip': '2356003'}], 50725))
+
+# print(getRoutes(6335))
+# print(getTrips([12]))
+# print(getActiveTripsAndStops(['2390233', '2390236', '2356020', '2356003', '2395173', '2356376']))
+# print(getsStopsDistance([{'stop': '1155', 'route': '66', 'trip': '2356003'}], 50725))
