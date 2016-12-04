@@ -20,26 +20,31 @@ tripsdata = trips.json()
 
 # Get bus routes that pass by passenger_stop
 def getRoutes(stop):
+    print(stop)
     routes_list = []
     for routedict in routestopsdata:
         stopslist = routedict.get("stop_ids")
         if stop in stopslist:
             routes_list.append(routedict.get("route_id"))
+    print(routes_list)        
     return routes_list
     
 #get trips taken by bus routes
 def getTrips(routes_list):
+    print(routes_list)
     trips_list = []
     for tripdict in tripsdata:
         route_id = tripdict.get("route_id")
         for route in routes_list:
             if str(route) == route_id:
                 trips_list.append(tripdict.get("trip_id"))
+    print(trips_list)
     return trips_list
 
 #get list of trips currently active and their most recent stop ids
 #known bug: Occasionally api shows two stop ids for same trip
 def getActiveTripsAndStops(trips_list):
+    print(trips_list)
     active_trips_list = []
     recent_stops_list = []
     route_ids_list = []
@@ -58,13 +63,15 @@ def getActiveTripsAndStops(trips_list):
     for i in range(len(route_ids_list)):
         dct = {'route': route_ids_list[i], 'stop': recent_stops_list[i], 'trip': active_trips_list[i]}
         trips_stops_list.append(dct)
+    print(trips_stops_list)
     return trips_stops_list
     
 #calculates distance from passenger to bus measured in number of bus stops
 #compares index values in json arrays
 def getStopsDistance(trips_stops_list, passenger_stop):
+    print(trips_stops_list)
     text_msg = ''
-    closest_stop = 500
+    closest_stop = 500 #initialize arbitarily large value
     for trip_dct in trips_stops_list:
         stop = int(trip_dct.get('stop'))
         route = str(trip_dct.get('route'))
@@ -76,6 +83,8 @@ def getStopsDistance(trips_stops_list, passenger_stop):
                 if bus_idx <= passen_idx and (passen_idx - bus_idx) < closest_stop:
                     closest_stop = passen_idx - bus_idx
                     text_msg = "Bus "+str(route)+" is "+str(passen_idx - bus_idx)+" stops away. "
+    
+    print(text_msg)
     if text_msg == '':
         return "There are no buses arriving at your stop soon."
         #if stop is not valid, user will get this message
@@ -97,7 +106,7 @@ def main():
 if __name__ == '__main__':
     main()
 
-print(smsReply(16710))
+print(smsReply(18475))
     
 # old test values for functions
 # print(getRoutes(6335))
