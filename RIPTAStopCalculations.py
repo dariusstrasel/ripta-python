@@ -62,7 +62,7 @@ def getActiveTripsAndStops(trips_list):
     
 #calculates distance from passenger to bus measured in number of bus stops
 #compares index values in json arrays
-def getsStopsDistance(trips_stops_list, passenger_stop):
+def getStopsDistance(trips_stops_list, passenger_stop):
     text_msg = ''
     for trip_dct in trips_stops_list:
         stop = int(trip_dct.get('stop'))
@@ -78,15 +78,12 @@ def getsStopsDistance(trips_stops_list, passenger_stop):
         return "There are no buses on the way to your stop."
     else:
         return text_msg
-                
-#testing with input values
-passenger_stop = int(input())
-passenger_routes = getRoutes(passenger_stop)
-bus_trips = getTrips(passenger_routes)
-active_trips_and_stops = getActiveTripsAndStops(bus_trips)
 
-
-print(getsStopsDistance(active_trips_and_stops, passenger_stop))
+def smsReply(passenger_stop):
+    passenger_routes = getRoutes(passenger_stop)
+    bus_trips = getTrips(passenger_routes)
+    active_trips_and_stops = getActiveTripsAndStops(bus_trips)
+    return getStopsDistance(active_trips_and_stops, passenger_stop)
 
 def main():
     pass
