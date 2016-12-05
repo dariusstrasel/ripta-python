@@ -8,3 +8,4 @@ This uses the [RIPTA Realtime API](realtime.ripta.com:81), which is standardised
 * The Python-based implementation uses Flask and werkzeug libraries to consume the HTTP requests from the Twilio API which are then passed into data-parsing functions which calculate a result using the RIPTA real-time API.
 
 [![](https://i.imgsafe.org/5bd71ecb06.png)](https://www.youtube.com/watch?v=QAHl9NNQ_0o&feature=youtu.be)
+* (Video credit to Anne Wolfe)
